@@ -26,7 +26,7 @@ function App() {
             <font color="#FF00ff">s</font>
           </blink>
         </h1>
-        <marquee style={{fontColor: 'blue'}}>Millions and millions of books available for your searching pleasure!</marquee>
+        <marquee style={{fontColor: 'blue', lineHeight: '30px'}}>Millions and millions of books available for your searching pleasure!</marquee>
         <h3 style={{textAlign: "center"}}>
           Where Nineties design practices meet the complexities and power of <blink>web 2.0</blink>
         </h3>
