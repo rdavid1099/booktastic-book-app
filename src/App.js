@@ -29,20 +29,31 @@ class App extends React.Component {
   }
 
   fetchQueryResults() {
-    if (this.state.currentQuery) {
+    if (!this.state.currentQuery) { return; }
+
+    const queryCollection = {...this.state.queryCollection};
+    const currentResults = this.sanitizeQuery();
+    const originalQuery = this.state.currentQuery;
+
+    if (queryCollection[currentResults]) {
+      queryCollection[currentResults].originalQuery = originalQuery;
+      this.setState({
+        queryCollection,
+        currentResults,
+        currentQuery: '',
+      });
+    } else {
       this.setState({loading: true});
       fetch(`https://www.googleapis.com/books/v1/volumes?${this.convertParams()}`)
         .then(resp => resp.json())
         .then(data => {
-          const { queryCollection } = this.state;
-          const currentResults = this.sanitizeQuery();
           const {totalItems, items} = data;
           const collection = items.map(book => {
             const { title, authors, description, imageLinks, infoLink } = book.volumeInfo;
             return { title, authors, description, imageLinks, infoLink };
           });
           queryCollection[currentResults] = {
-            originalQuery: this.state.currentQuery,
+            originalQuery,
             totalItems,
             collection,
           };
