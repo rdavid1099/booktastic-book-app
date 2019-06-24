@@ -22,8 +22,8 @@ const QueryComponent = props => (
               type="button"
               onClick={props.fetchQueryResults}
             >
-                Search
-              </button>
+              Search
+            </button>
           </div>
         </div>
       </center>
