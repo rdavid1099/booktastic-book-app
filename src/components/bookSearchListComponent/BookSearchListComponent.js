@@ -6,9 +6,13 @@ import QueryComponent from './QueryComponent';
 
 const BookSearchListComponent = props => (
   <div className="container" id="book-search-list-component">
-    <QueryComponent />
+    <QueryComponent
+      {...props}
+    />
 
-    <BookListComponent />
+    <BookListComponent
+      {...props}
+    />
   </div>
 );
 

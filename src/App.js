@@ -48,7 +48,10 @@ class App extends React.Component {
             <img src={matilda} alt="matilda reading books" />
           </center>
         </header>
-        <BookSearchListComponent />
+        <BookSearchListComponent
+          {...this.props}
+          {...this.state}
+        />
       </div>
     );
   }
