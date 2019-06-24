@@ -7,9 +7,9 @@ const QueryComponent = props => (
       <center>
         <div class="input-group mb-3">
           <label for="book-query">Search Google's Book Catalog</label>
-          <input type="text" class="form-control" id="book-query" placeholder='Search by Title or Author' style={{width: '35%'}} />
+          <input type="text" class="form-control" id="book-query" placeholder='Search by Title or Author' style={{width: '35%'}} disabled={props.loading} />
           <div class="input-group-append">
-            <button class="btn btn-outline-secondary" type="button" id="button-addon2">Search</button>
+            <button class={`btn btn-outline-secondary ${props.loading ? 'disabled' : ''}`} type="button" id="button-addon2">Search</button>
           </div>
         </div>
       </center>
