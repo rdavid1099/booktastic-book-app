@@ -18,19 +18,25 @@ const BookListComponent = props => {
         <table>
           <thead>
             <tr>
+              <th>Cover</th>
               <th>Title</th>
               <th>Author(s)</th>
               <th>Description</th>
-              <th>Cover</th>
+              <th>Publisher</th>
             </tr>
           </thead>
           <tbody>
             {collection.map((book, key) => (
               <tr key={key} className="book-result" onClick={() => props.routeTo(book.infoLink)}>
+                <td>{(book.imageLinks && book.imageLinks.smallThumbnail) ?
+                  <img src={`${book.imageLinks.smallThumbnail}`} alt={book.title} /> :
+                  'No Image'
+                }
+                </td>
                 <td>{book.title}</td>
-                <td>{book.authors.join(', ')}</td>
+                <td>{book.authors ? book.authors.join(', ') : 'N/A'}</td>
                 <td>{book.description ? book.description : 'No description provided.'}</td>
-                <td><img src={`${book.imageLinks.smallThumbnail}`} alt={book.title} /></td>
+                <td>{book.publisher ? book.publisher : 'N/A'}</td>
               </tr>
             ))}
           </tbody>
