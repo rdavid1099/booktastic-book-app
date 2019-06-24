@@ -29,20 +29,31 @@ class App extends React.Component {
   }
 
   fetchQueryResults() {
-    if (this.state.currentQuery) {
+    if (!this.state.currentQuery) { return; }
+
+    const queryCollection = {...this.state.queryCollection};
+    const currentResults = this.sanitizeQuery();
+    const originalQuery = this.state.currentQuery;
+
+    if (queryCollection[currentResults]) {
+      queryCollection[currentResults].originalQuery = originalQuery;
+      this.setState({
+        queryCollection,
+        currentResults,
+        currentQuery: '',
+      });
+    } else {
       this.setState({loading: true});
       fetch(`https://www.googleapis.com/books/v1/volumes?${this.convertParams()}`)
         .then(resp => resp.json())
         .then(data => {
-          const { queryCollection } = this.state;
-          const currentResults = this.sanitizeQuery();
           const {totalItems, items} = data;
           const collection = items.map(book => {
             const { title, authors, description, imageLinks, infoLink } = book.volumeInfo;
             return { title, authors, description, imageLinks, infoLink };
           });
           queryCollection[currentResults] = {
-            originalQuery: this.state.currentQuery,
+            originalQuery,
             totalItems,
             collection,
           };
@@ -93,9 +104,9 @@ class App extends React.Component {
               <font color="#FF00ff">s</font>
             </blink>
           </h1>
-          <marquee style={{fontColor: 'blue', lineHeight: '30px'}}>Millions and millions of books available for your searching pleasure!</marquee>
+          <marquee style={{lineHeight: '50px'}}>Millions and millions of books available for your searching pleasure!</marquee>
           <h3 style={{textAlign: "center"}}>
-            Where Nineties design practices meet the complexities and power of <blink>web 2.0</blink>
+            Surfing the World Wide Web for books like you're back in the <blink>NINETIES</blink>!
           </h3>
           <center>
             <img src={matilda} alt="matilda reading books" />
