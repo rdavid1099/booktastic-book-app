@@ -14,6 +14,32 @@ class App extends React.Component {
       queryCollection: [],
       currentResults: {},
     };
+    this.trackQueryState = this.trackQueryState.bind(this);
+    this.fetchQueryResults = this.fetchQueryResults.bind(this);
+    this.convertParams = this.convertParams.bind(this);
+  }
+
+  convertParams() {
+    return `q=${this.state.currentQuery.replace(/\s/g, '+')}&key=${process.env.REACT_APP_GOOGLE_API_KEY}`
+  }
+
+  fetchQueryResults() {
+    if (this.state.currentQuery) {
+      this.setState({loading: true});
+      fetch(`https://www.googleapis.com/books/v1/volumes?${this.convertParams()}`)
+        .then(resp => resp.json())
+        .then(data => {
+          debugger
+        });
+    }
+  }
+
+  trackQueryState(e) {
+    if (e.keyCode === 13) {
+      this.fetchQueryResults();
+    } else {
+      this.setState({currentQuery: e.target.value});
+    }
   }
 
   render() {
@@ -51,6 +77,7 @@ class App extends React.Component {
         <BookSearchListComponent
           {...this.props}
           {...this.state}
+          trackQueryState={this.trackQueryState}
         />
       </div>
     );
