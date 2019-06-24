@@ -11,3 +11,22 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+table, th, td {
+  border: 2px solid yellow;
+  line-height: 30px;
+  border-collapse: unset;
+  border-spacing: 3px;
+}
+
+th, td {
+  padding: 15px;
+}
+
+.book-result:hover {
+  cursor: pointer;
+}
+
+.row {
+  margin-top: 20px;
+}
