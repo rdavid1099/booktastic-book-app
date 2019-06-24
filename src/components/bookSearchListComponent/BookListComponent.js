@@ -12,7 +12,7 @@ const BookListComponent = props => {
     <div className="row">
       <p>
         {`Displaying ${collection.length} ${pluralize('result', collection.length)} `}
-        {collection.length ? `for '${queryItems.originalQuery}'` : '... Enter a search to begin your Booktastic Adventure!'}
+        {collection.length ? `of ${queryItems.totalItems} for '${queryItems.originalQuery}'` : '... Enter a search to begin your Booktastic Adventure!'}
       </p>
       {!!collection.length && (
         <table>
@@ -25,8 +25,8 @@ const BookListComponent = props => {
             </tr>
           </thead>
           <tbody>
-            {collection.map(book => (
-              <tr>
+            {collection.map((book, key) => (
+              <tr key={key} className="book-result" onClick={() => props.routeTo(book.infoLink)}>
                 <td>{book.title}</td>
                 <td>{book.authors}</td>
                 <td>{book.description}</td>

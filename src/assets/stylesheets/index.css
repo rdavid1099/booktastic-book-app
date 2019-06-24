@@ -23,6 +23,10 @@ th, td {
   padding: 15px;
 }
 
+.book-result:hover {
+  cursor: pointer;
+}
+
 .row {
   margin-top: 20px;
 }

@@ -17,6 +17,7 @@ class App extends React.Component {
     this.trackQueryState = this.trackQueryState.bind(this);
     this.fetchQueryResults = this.fetchQueryResults.bind(this);
     this.convertParams = this.convertParams.bind(this);
+    this.routeTo = this.routeTo.bind(this);
   }
 
   sanitizeQuery() {
@@ -63,6 +64,11 @@ class App extends React.Component {
     }
   }
 
+  routeTo(url) {
+    const win = window.open(url, '_blank');
+    win.focus();
+  }
+
   render() {
     return (
       <div className="App" className="container">
@@ -99,6 +105,8 @@ class App extends React.Component {
           {...this.props}
           {...this.state}
           trackQueryState={this.trackQueryState}
+          fetchQueryResults={this.fetchQueryResults}
+          routeTo={this.routeTo}
         />
       </div>
     );

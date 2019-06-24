@@ -10,9 +10,16 @@ it('prompts users to search if query collection is empty', () => {
 
 it('displays query count and query if query has been submitted', () => {
   const bookListComponent = shallow(<BookListComponent
-    queryCollection={[{title: 'stuff'}]}
-    currentQuery='stuff'
+    queryCollection={{stuff: {
+      totalItems: 1,
+      collection: [{
+        title: 'stuff',
+        imageLinks: {smallThumbnail: ''},
+      }],
+      originalQuery: 'STUFF'
+    }}}
+    currentResults='stuff'
   />);
-  const cta = <p>Displaying 1 result for 'stuff'</p>;
+  const cta = <p>Displaying 1 result of 1 for 'STUFF'</p>;
   expect(bookListComponent.contains(cta)).toEqual(true);
 });

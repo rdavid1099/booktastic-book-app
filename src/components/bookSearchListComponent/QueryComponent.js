@@ -14,12 +14,13 @@ const QueryComponent = props => (
             placeholder='Search by Title or Author'
             style={{width: '35%'}}
             disabled={props.loading}
-            onKeyDown={props.trackQueryState}
+            onKeyUp={props.trackQueryState}
           />
           <div className="input-group-append">
             <button
               className={`btn btn-outline-secondary ${props.loading || !props.currentQuery ? 'disabled' : ''}`}
               type="button"
+              onClick={props.fetchQueryResults}
             >
                 Search
               </button>
