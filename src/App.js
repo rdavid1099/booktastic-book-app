@@ -49,8 +49,9 @@ class App extends React.Component {
         .then(data => {
           const {totalItems, items} = data;
           const collection = items.map(book => {
-            const { title, authors, description, imageLinks, infoLink } = book.volumeInfo;
-            return { title, authors, description, imageLinks, infoLink };
+            console.log(book.volumeInfo);
+            const { title, authors, description, publisher, imageLinks, infoLink } = book.volumeInfo;
+            return { title, authors, description, publisher, imageLinks, infoLink };
           });
           queryCollection[currentResults] = {
             originalQuery,
