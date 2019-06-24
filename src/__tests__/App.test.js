@@ -1,9 +1,15 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { shallow } from 'enzyme';
 import App from '../App';
 
 it('renders without crashing', () => {
-  const div = document.createElement('div');
-  ReactDOM.render(<App />, div);
-  ReactDOM.unmountComponentAtNode(div);
+  shallow(<App />);
+});
+
+it('renders welcome message', () => {
+  const app = shallow(<App />);
+  const welcome = <h3 style={{textAlign: "center"}}>
+    Where Nineties design practices meet the complexities and power of <blink>web 2.0</blink>
+  </h3>;
+  expect(app.contains(welcome)).toEqual(true);
 });
