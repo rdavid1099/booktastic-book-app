@@ -28,8 +28,8 @@ const BookListComponent = props => {
             {collection.map((book, key) => (
               <tr key={key} className="book-result" onClick={() => props.routeTo(book.infoLink)}>
                 <td>{book.title}</td>
-                <td>{book.authors}</td>
-                <td>{book.description}</td>
+                <td>{book.authors.join(', ')}</td>
+                <td>{book.description ? book.description : 'No description provided.'}</td>
                 <td><img src={`${book.imageLinks.smallThumbnail}`} alt={book.title} /></td>
               </tr>
             ))}

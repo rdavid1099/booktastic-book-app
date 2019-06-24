@@ -15,6 +15,7 @@ it('displays query count and query if query has been submitted', () => {
       collection: [{
         title: 'stuff',
         imageLinks: {smallThumbnail: ''},
+        authors: ['person', 'another person'],
       }],
       originalQuery: 'STUFF'
     }}}
