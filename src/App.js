@@ -11,16 +11,20 @@ class App extends React.Component {
     this.state = {
       loading: false,
       currentQuery: '',
-      queryCollection: [],
-      currentResults: {},
+      queryCollection: {},
+      currentResults: '',
     };
     this.trackQueryState = this.trackQueryState.bind(this);
     this.fetchQueryResults = this.fetchQueryResults.bind(this);
     this.convertParams = this.convertParams.bind(this);
   }
 
+  sanitizeQuery() {
+    return this.state.currentQuery.toLowerCase().replace(/\s/g, '+');
+  }
+
   convertParams() {
-    return `q=${this.state.currentQuery.replace(/\s/g, '+')}&key=${process.env.REACT_APP_GOOGLE_API_KEY}`
+    return `q=${this.sanitizeQuery()}&key=${process.env.REACT_APP_GOOGLE_API_KEY}`
   }
 
   fetchQueryResults() {
@@ -29,7 +33,24 @@ class App extends React.Component {
       fetch(`https://www.googleapis.com/books/v1/volumes?${this.convertParams()}`)
         .then(resp => resp.json())
         .then(data => {
-          debugger
+          const { queryCollection } = this.state;
+          const currentResults = this.sanitizeQuery();
+          const {totalItems, items} = data;
+          const collection = items.map(book => {
+            const { title, authors, description, imageLinks, infoLink } = book.volumeInfo;
+            return { title, authors, description, imageLinks, infoLink };
+          });
+          queryCollection[currentResults] = {
+            originalQuery: this.state.currentQuery,
+            totalItems,
+            collection,
+          };
+          this.setState({
+            currentResults,
+            queryCollection,
+            loading: false,
+            currentQuery: '',
+          });
         });
     }
   }

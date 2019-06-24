@@ -17,7 +17,12 @@ const QueryComponent = props => (
             onKeyDown={props.trackQueryState}
           />
           <div className="input-group-append">
-            <button className={`btn btn-outline-secondary ${props.loading ? 'disabled' : ''}`} type="button" id="button-addon2">Search</button>
+            <button
+              className={`btn btn-outline-secondary ${props.loading || !props.currentQuery ? 'disabled' : ''}`}
+              type="button"
+            >
+                Search
+              </button>
           </div>
         </div>
       </center>
